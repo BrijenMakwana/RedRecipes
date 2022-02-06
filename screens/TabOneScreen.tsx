@@ -12,7 +12,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   const [recipes,setRecipes] = useState([]);
 
   const getRandomRecipes = () => {
-    axios.get('https://api.spoonacular.com/recipes/random?number=50&tags=vegetarian,dessert',{
+    axios.get('https://api.spoonacular.com/recipes/random?number=50&tags=paleo',{
         params:{
             apiKey: ""
         }
@@ -54,16 +54,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff"
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  }
 });

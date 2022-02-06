@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, Dimensions} from "react-native";
+import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
 export type RecipeCardProps = {
     recipe:{
@@ -16,10 +17,17 @@ export type RecipeCardProps = {
 const RecipeCard = (props: RecipeCardProps) => {
     // const ColorCode = 'rgb(' + (Math.floor(Math.random() * 256))*(1/4) + ',' + (Math.floor(Math.random() * 256))*(1/2) + ',' + (Math.floor(Math.random() * 256))*(3/4) + ')';
 
+    const navigation = useNavigation();
+
+    const goToRecipe = () => {
+        navigation.navigate("Recipe",{
+            id: props.recipe.id
+        })
+    }
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={goToRecipe}>
             <View style={[styles.recipe,{
-                backgroundColor: "#B0EACD",
+                backgroundColor: "#FF7878",
             }]}>
 
 
@@ -49,7 +57,7 @@ const RecipeCard = (props: RecipeCardProps) => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };
 
@@ -58,12 +66,12 @@ export default RecipeCard;
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get("window").width,
-        alignItems: "center"
-        // backgroundColor: "red"
+        alignItems: "center",
+        // backgroundColor: "red",
+        height: 500
 
     },
     recipe:{
-        backgroundColor: "#AEE6E6",
         width: "60%",
         alignItems: 'center',
         justifyContent: 'center',
@@ -100,17 +108,20 @@ const styles = StyleSheet.create({
         padding: 10
     },
     title:{
-        fontSize: 17,
-        fontWeight: "bold"
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#222831"
     },
     dishType:{
         marginTop: 5,
-        fontSize: 15,
-        fontWeight: "500"
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#F7F5DD"
     },
     summary: {
         marginTop: 10,
-        fontSize: 15,
-        fontWeight: "400"
+        fontSize: 17,
+        fontWeight: "600",
+        color: "#fff"
     }
 });
