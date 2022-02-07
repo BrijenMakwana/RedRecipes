@@ -37,16 +37,22 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   },[])
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-          data={recipes}
-          renderItem={({item})=> <RecipeCard recipe={item}/>}
-          keyExtractor={item=>item.id}
-          horizontal
-          snapToAlignment="start"
-          decelerationRate={"fast"}
-          snapToInterval={Dimensions.get("window").width}
-          showsHorizontalScrollIndicator={false}
-      />
+        <View>
+            <FlatList
+                data={recipes}
+                renderItem={({item})=> <RecipeCard recipe={item}/>}
+                keyExtractor={item=>item.id}
+                horizontal
+                snapToAlignment="start"
+                decelerationRate={"fast"}
+                snapToInterval={Dimensions.get("window").width}
+                showsHorizontalScrollIndicator={false}
+            />
+        </View>
+        <View>
+
+        </View>
+
 
     </SafeAreaView>
   );
@@ -54,7 +60,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: "#fff"
   }
 });
