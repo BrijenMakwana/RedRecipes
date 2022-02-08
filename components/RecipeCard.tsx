@@ -26,10 +26,6 @@ const RecipeCard = (props: RecipeCardProps) => {
     }
     return (
         <Pressable style={styles.container} onPress={goToRecipe}>
-            <View style={[styles.recipe,{
-                backgroundColor: "#FF7878",
-            }]}>
-
 
                {/* image container*/}
                 <View style={styles.imageContainer}>
@@ -38,25 +34,28 @@ const RecipeCard = (props: RecipeCardProps) => {
                             uri: props.recipe.image
                         }}
                         style={styles.image}
+                        resizeMode= "cover"
                     />
                 </View>
-                {/*duration*/}
+                {/* duration*/}
                 <View style={styles.duration}>
                     <Text style={styles.timeText} numberOfLines={2}>{props.recipe.readyInMinutes} min</Text>
                 </View>
-                {/*info */}
+                {/* info */}
                 <View style={styles.info}>
+                    {/* title */}
                     <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
                         {props.recipe.title}
                     </Text>
+                    {/* dish type*/}
                     <Text style={styles.dishType}>
                         {props.recipe.dishTypes[0]}
                     </Text>
-                    <Text style={styles.summary} numberOfLines={7} ellipsizeMode={"tail"}>
-                        {props.recipe.summary}
-                    </Text>
+                    {/*/!* summary*!/*/}
+                    {/*<Text style={styles.summary} numberOfLines={7} ellipsizeMode={"tail"}>*/}
+                    {/*    {props.recipe.summary}*/}
+                    {/*</Text>*/}
                 </View>
-            </View>
         </Pressable>
     );
 };
@@ -65,47 +64,56 @@ export default RecipeCard;
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get("window").width,
         alignItems: "center",
-        // backgroundColor: "red",
-        height: 500
-
-    },
-    recipe:{
-        width: "60%",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderRadius: 25
+        width: 250,
+        marginLeft: 30,
+        shadowColor: "#000",
+        shadowOpacity: 0.5,
+        elevation: 10,
+        shadowOffset:{
+            height: 5,
+            width: 5
+        },
+        backgroundColor: "#fff",
+        borderRadius: 30,
+        marginVertical: 20
 
     },
     imageContainer: {
-        marginTop: 20,
+
 
     },
     image:{
-        height: 130,
-        width: 130,
+        height: 180,
+        width: 250,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30
 
     },
     duration:{
         marginTop: 20,
-        backgroundColor: "#fff",
+        backgroundColor: "#FF7878",
         borderRadius: 30,
         height: 60,
         width: 60,
         alignItems: "center",
         justifyContent: "center",
-        padding: 5
+        padding: 5,
+        position: "absolute",
+        top: 130,
+        right: 20
 
     },
     timeText:{
         fontSize: 15,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#fff"
     },
     info:{
-        marginTop: 15,
-        padding: 10
+        marginTop: 35,
+        padding: 10,
+        marginBottom: 10
+
     },
     title:{
         fontSize: 18,
@@ -116,12 +124,12 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 16,
         fontWeight: "bold",
-        color: "#F7F5DD"
+        color: "#000"
     },
     summary: {
         marginTop: 10,
         fontSize: 17,
         fontWeight: "600",
-        color: "#fff"
+        color: "#000"
     }
 });

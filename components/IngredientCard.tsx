@@ -21,7 +21,7 @@ const IngredientCard = (props: IngredientCardProps) => {
                 style={styles.image}
                 resizeMode= "contain"
             />
-            <Text style={styles.name}>
+            <Text style={styles.name} numberOfLines={2}>
                 {props.ingredient.name}
             </Text>
         </View>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginHorizontal: 10,
         justifyContent: "center",
-
+        width: 100
     },
     image:{
         height: 50,
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
         textTransform: "capitalize",
         marginTop: 5,
         color: "#FF7878",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center"
     }
 });

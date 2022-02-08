@@ -8,7 +8,10 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {useRoute} from "@react-navigation/native";
 import IngredientCard from "../components/IngredientCard";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
+import RecipeCard from "../components/RecipeCard";
+import SimilarRecipeCard from "../components/SimilarRecipeCard";
+
 
 export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
@@ -16,6 +19,7 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     const route = useRoute();
     const [recipeId,setRecipeId] = useState(route.params.id);
     const [ingredients,setIngredients] = useState([]);
+    const [similarRecipes,setSimilarRecipes] = useState([]);
 
 
     const getRecipe = () => {
@@ -42,16 +46,38 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     }
 
     const goToFullRecipe = () => {
-        // got to article source
+        // got to recipe source
         WebBrowser.openBrowserAsync(recipe.sourceUrl);
 
     }
 
+    const getSimilarRecipes = () => {
+        axios.get(`https://api.spoonacular.com/recipes/${recipeId}/similar`,{
+            params:{
+                apiKey: ""
+            }
+
+        })
+            .then((response)=> {
+                // handle success
+                setSimilarRecipes(response.data);
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
     useEffect(()=>{
         getRecipe();
+        getSimilarRecipes();
     },[])
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <SafeAreaView>
                 {/* title */}
                 <Text style={styles.title}>
@@ -68,8 +94,16 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                     />
                     {/* duration*/}
                     <View style={styles.duration}>
-                        <Text style={styles.time}>{recipe.readyInMinutes} min</Text>
+                        <Text style={styles.time} numberOfLines={2}>{recipe.readyInMinutes} min</Text>
                     </View>
+
+                    {/* full recipe*/}
+                    <Pressable
+                        style={styles.fullRecipe}
+                        onPress={goToFullRecipe}
+                    >
+                        <Ionicons name="play" size={24} color="#fff" />
+                    </Pressable>
                 </View>
                 {/* Ingredients*/}
                 <View style={styles.IngredientContainer}>
@@ -90,21 +124,19 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                     />
 
                 </View>
-
-                {/* information about recipe*/}
-                <View style={styles.info}>
-                    <Text style={styles.instructions} numberOfLines={5}>
-                        {recipe.instructions}
-                    </Text>
-                    <Pressable onPress={goToFullRecipe} style={styles.getFullRecipe}>
-                        <Text style={styles.getFullRecipeText}>
-                            Go to Full Recipe
-                        </Text>
-                    </Pressable>
-
+                {/*    similar recipes*/}
+                <View style={styles.similarRecipesContainer}>
+                    <Text style={styles.similarRecipeTitle}>Similar Recipes</Text>
+                    <FlatList
+                        data={similarRecipes}
+                        renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
+                        keyExtractor={item=> item.id}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                    />
                 </View>
             </SafeAreaView>
-        </ScrollView>
+        </View>
     );
 }
 
@@ -133,13 +165,14 @@ const styles = StyleSheet.create({
         borderRadius: 30
     },
     duration:{
-        height: 50,
-        width: 50,
+        height: 60,
+        width: 60,
+        padding: 5,
         backgroundColor: "#FF7878",
         position: "absolute",
-        right: 110,
-        top: -22,
-        borderRadius: 25,
+        right: 120,
+        bottom: -22,
+        borderRadius: 35,
         alignItems: "center",
         justifyContent: "center"
     },
@@ -148,8 +181,19 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "bold"
     },
+    fullRecipe: {
+        height: 50,
+        width: 50,
+        backgroundColor: "#FF7878",
+        position: "absolute",
+        right: 110,
+        top: -20,
+        borderRadius: 25,
+        alignItems: "center",
+        justifyContent: "center"
+    },
     IngredientContainer:{
-        marginTop: 20,
+        marginTop: 25,
         flexDirection: "row"
     },
     IngredientIconContainer:{
@@ -177,13 +221,16 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "500"
     },
-    getFullRecipe:{
-        marginTop: 3,
-        width: 130,
-        alignSelf: "flex-end"
+    similarRecipesContainer:{
+        marginTop: 20,
+        height: 300,
+
+
     },
-    getFullRecipeText:{
-        color: "#252525",
-        fontWeight: "bold"
+    similarRecipeTitle:{
+        fontSize: 20,
+        fontWeight: "600",
+        marginLeft: 30,
+        marginBottom: 15
     }
 });

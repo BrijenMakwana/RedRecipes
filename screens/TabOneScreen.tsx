@@ -43,9 +43,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
                 renderItem={({item})=> <RecipeCard recipe={item}/>}
                 keyExtractor={item=>item.id}
                 horizontal
-                snapToAlignment="start"
-                decelerationRate={"fast"}
-                snapToInterval={Dimensions.get("window").width}
                 showsHorizontalScrollIndicator={false}
             />
         </View>
