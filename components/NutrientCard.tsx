@@ -29,10 +29,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: "#fff",
         alignSelf: "center",
-        width: "90%",
+        width: "100%",
         padding: 7,
         marginVertical: 5,
         flexDirection: "row",
+
 
 
     },
@@ -40,11 +41,13 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: "#FF7878",
         fontWeight: "bold",
+        marginLeft: 25
     },
     data:{
         fontSize: 15,
         color: "#000",
         fontWeight: "500",
+        marginRight: 25
     }
 
 });

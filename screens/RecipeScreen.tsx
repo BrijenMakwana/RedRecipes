@@ -81,69 +81,75 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     return (
         <View style={styles.container}>
             <SafeAreaView>
-                {/* title */}
-                <Text style={styles.title}>
-                    {recipe.title}
-                </Text>
-                {/* image   */}
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={{
-                            uri: recipe.image
-                        }}
-                        style={styles.image}
-                        resizeMode= "cover"
-                    />
-                    {/* duration*/}
-                    <View style={styles.duration}>
-                        <Text style={styles.time} numberOfLines={2}>{recipe.readyInMinutes} min</Text>
-                    </View>
 
-                    {/* full recipe*/}
-                    <Pressable
-                        style={styles.fullRecipe}
-                        onPress={goToFullRecipe}
-                    >
-                        <Ionicons name="play" size={24} color="#fff" />
-                    </Pressable>
-                </View>
-                {/* Ingredients*/}
-                <View style={styles.IngredientContainer}>
-                    <View style={styles.IngredientIconContainer}>
-                        <MaterialCommunityIcons
-                            name="food-variant"
-                            size={40}
-                            color="#fff"
-                        />
-                    </View>
-                    <FlatList
-                        data={ingredients}
-                        renderItem={({item})=> <IngredientCard ingredient={item}/>}
-                        keyExtractor={item=>item.id}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-
-                    />
-
-                </View>
-                {/*    similar recipes*/}
-                <View style={styles.similarRecipesContainer}>
-                    <Text style={styles.similarRecipeTitle}>Similar Recipes</Text>
-                    <FlatList
-                        data={similarRecipes}
-                        renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
-                        keyExtractor={item=> item.id}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                    />
-                </View>
                 {/*   nutrition information */}
                 <View style={styles.nutritionContainer}>
-                    <Text style={styles.nutritionTitle}>Nutrition</Text>
                     <FlatList
                         data={nutrition}
                         renderItem={({item})=> <NutrientCard nutrient={item}/>}
                         keyExtractor={item=> item.name}
+                        showsVerticalScrollIndicator={false}
+                        ListHeaderComponent={
+                        <View>
+                            {/* title */}
+                            <Text style={styles.title}>
+                                {recipe.title}
+                            </Text>
+                            {/* image   */}
+                            <View style={styles.imageContainer}>
+                                <Image
+                                    source={{
+                                        uri: recipe.image
+                                    }}
+                                    style={styles.image}
+                                    resizeMode= "cover"
+                                />
+                                {/* duration*/}
+                                <View style={styles.duration}>
+                                    <Text style={styles.time} numberOfLines={2}>{recipe.readyInMinutes} min</Text>
+                                </View>
+
+                                {/* full recipe*/}
+                                <Pressable
+                                    style={styles.fullRecipe}
+                                    onPress={goToFullRecipe}
+                                >
+                                    <Ionicons name="play" size={24} color="#fff" />
+                                </Pressable>
+                            </View>
+                            {/* Ingredients*/}
+                            <View style={styles.IngredientContainer}>
+                                <View style={styles.IngredientIconContainer}>
+                                    <MaterialCommunityIcons
+                                        name="food-variant"
+                                        size={40}
+                                        color="#fff"
+                                    />
+                                </View>
+                                <FlatList
+                                    data={ingredients}
+                                    renderItem={({item})=> <IngredientCard ingredient={item}/>}
+                                    keyExtractor={item=>item.id}
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+
+                                />
+
+                            </View>
+                            {/*    similar recipes*/}
+                            <View style={styles.similarRecipesContainer}>
+                                <Text style={styles.similarRecipeTitle}>Similar Recipes</Text>
+                                <FlatList
+                                    data={similarRecipes}
+                                    renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
+                                    keyExtractor={item=> item.id}
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                />
+                            </View>
+                            <Text style={styles.nutritionTitle}>Nutrition</Text>
+                        </View>
+                        }
                     />
                 </View>
             </SafeAreaView>
