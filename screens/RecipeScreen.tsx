@@ -11,6 +11,7 @@ import IngredientCard from "../components/IngredientCard";
 import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import RecipeCard from "../components/RecipeCard";
 import SimilarRecipeCard from "../components/SimilarRecipeCard";
+import NutrientCard from "../components/NutrientCard";
 
 
 export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
@@ -20,10 +21,11 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     const [recipeId,setRecipeId] = useState(route.params.id);
     const [ingredients,setIngredients] = useState([]);
     const [similarRecipes,setSimilarRecipes] = useState([]);
+    const [nutrition,setNutrition] = useState([]);
 
 
     const getRecipe = () => {
-        axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false`,{
+        axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true`,{
             params:{
                 apiKey: ""
             }
@@ -34,7 +36,7 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                 // console.log(response.data.recipes);
                 setRecipe(response.data);
                 setIngredients(response.data.extendedIngredients);
-                // console.log(response.data);
+                setNutrition(response.data.nutrition.nutrients);
             })
             .catch(function (error) {
                 // handle error
@@ -61,7 +63,7 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
             .then((response)=> {
                 // handle success
                 setSimilarRecipes(response.data);
-                console.log(response.data);
+
             })
             .catch(function (error) {
                 // handle error
@@ -135,6 +137,15 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                         showsHorizontalScrollIndicator={false}
                     />
                 </View>
+                {/*   nutrition information */}
+                <View style={styles.nutritionContainer}>
+                    <Text style={styles.nutritionTitle}>Nutrition</Text>
+                    <FlatList
+                        data={nutrition}
+                        renderItem={({item})=> <NutrientCard nutrient={item}/>}
+                        keyExtractor={item=> item.name}
+                    />
+                </View>
             </SafeAreaView>
         </View>
     );
@@ -205,29 +216,22 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF7878",
         marginHorizontal: 25
     },
-    info:{
-        marginTop: 20,
-        padding: 20,
-        backgroundColor: "#FF7878",
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        width: "90%",
-        borderRadius: 30,
-        alignSelf: "center"
-    },
-    instructions:{
-        fontSize: 18,
-        lineHeight: 30,
-        color: "#fff",
-        fontWeight: "500"
-    },
     similarRecipesContainer:{
         marginTop: 20,
-        height: 300,
-
+        height: 250,
+        // backgroundColor: "red"
 
     },
     similarRecipeTitle:{
+        fontSize: 20,
+        fontWeight: "600",
+        marginLeft: 30,
+        marginBottom: 15
+    },
+    nutritionContainer:{
+        marginTop: 10,
+    },
+    nutritionTitle:{
         fontSize: 20,
         fontWeight: "600",
         marginLeft: 30,
