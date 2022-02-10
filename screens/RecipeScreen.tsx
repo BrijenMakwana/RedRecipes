@@ -8,10 +8,11 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {useRoute} from "@react-navigation/native";
 import IngredientCard from "../components/IngredientCard";
-import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
-import RecipeCard from "../components/RecipeCard";
+import {Entypo, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
+
 import SimilarRecipeCard from "../components/SimilarRecipeCard";
 import NutrientCard from "../components/NutrientCard";
+import EquipmentCard from "../components/EquipmentCard";
 
 
 export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
@@ -20,6 +21,7 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     const route = useRoute();
     const [recipeId,setRecipeId] = useState(route.params.id);
     const [ingredients,setIngredients] = useState([]);
+    const [equipments,setEquipments] = useState([]);
     const [similarRecipes,setSimilarRecipes] = useState([]);
     const [nutrition,setNutrition] = useState([]);
 
@@ -74,9 +76,33 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
             });
     }
 
+    const getEquipments = () => {
+        axios.get(`https://api.spoonacular.com/recipes/${recipeId}/equipmentWidget.json`,{
+            params:{
+                apiKey: ""
+            }
+
+        })
+            .then((response)=> {
+                // handle success
+                setEquipments(response.data.equipment);
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+
     useEffect(()=>{
         getRecipe();
         getSimilarRecipes();
+        getEquipments();
+
     },[])
     return (
         <View style={styles.container}>
@@ -118,12 +144,11 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                                 </Pressable>
                             </View>
                             {/* Ingredients*/}
-                            <View style={styles.IngredientContainer}>
-                                <View style={styles.IngredientIconContainer}>
-                                    <MaterialCommunityIcons
-                                        name="food-variant"
-                                        size={40}
-                                        color="#fff"
+                            <View style={styles.ingredientContainer}>
+                                <View style={styles.ingredientIconContainer}>
+                                    <Entypo
+                                        name="shopping-cart"
+                                        size={30} color="#fff"
                                     />
                                 </View>
                                 <FlatList
@@ -136,9 +161,26 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                                 />
 
                             </View>
+                            {/* equipments*/}
+                            <View style={styles.ingredientContainer}>
+                                <View style={styles.ingredientIconContainer}>
+                                    <MaterialCommunityIcons
+                                        name="toaster-oven"
+                                        size={30}
+                                        color="#fff"
+                                    />
+                                </View>
+                                <FlatList
+                                    data={equipments}
+                                    renderItem={({item})=> <EquipmentCard equipment={item}/>}
+                                    keyExtractor={item=> item.name}
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                />
+                            </View>
                             {/*    similar recipes*/}
                             <View style={styles.similarRecipesContainer}>
-                                <Text style={styles.similarRecipeTitle}>Similar Recipes</Text>
+                                <Text style={styles.similarRecipeTitle}>Related Recipes</Text>
                                 <FlatList
                                     data={similarRecipes}
                                     renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
@@ -147,6 +189,12 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                                     showsHorizontalScrollIndicator={false}
                                 />
                             </View>
+                            {/* taste of the recipe */}
+                            {/*<View>*/}
+                            {/*    <Image*/}
+                            {/*        source={}*/}
+                            {/*    />*/}
+                            {/*</View>*/}
                             <Text style={styles.nutritionTitle}>Nutrition</Text>
                         </View>
                         }
@@ -209,11 +257,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    IngredientContainer:{
+    ingredientContainer:{
         marginTop: 25,
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: "center"
     },
-    IngredientIconContainer:{
+    ingredientIconContainer:{
         alignItems: "center",
         justifyContent: "center",
         height: 60,
