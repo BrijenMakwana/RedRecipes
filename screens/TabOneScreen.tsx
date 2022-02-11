@@ -6,50 +6,40 @@ import { RootTabScreenProps } from '../types';
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import RecipeCategory from "../components/RecipeCategory";
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-
-  const [recipes,setRecipes] = useState([]);
-
-  const getRandomRecipes = () => {
-    axios.get('https://api.spoonacular.com/recipes/random?number=50&tags=paleo',{
-        params:{
-            apiKey: ""
+    const [categories,setCategories] = useState([
+        {
+            id: "1",
+            categoryName: "Trending Recipes",
+            tags: "Paleo"
+        },
+        {
+            id: "2",
+            categoryName: "Looking something for Breakfast",
+            tags: "breakfast"
+        },
+        {
+            id: "3",
+            categoryName: "Best in Salads",
+            tags: "salad"
+        },
+        {
+            id: "4",
+            categoryName: "Full of Sweetness",
+            tags: "dessert"
         }
+    ]);
 
-    })
-        .then((response)=> {
-          // handle success
-          // console.log(response.data.recipes);
-          setRecipes(response.data.recipes)
 
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .then(function () {
-          // always executed
-        });
-  }
-
-  useEffect(()=>{
-    getRandomRecipes();
-  },[])
   return (
     <SafeAreaView style={styles.container}>
-        <View>
-            <FlatList
-                data={recipes}
-                renderItem={({item})=> <RecipeCard recipe={item}/>}
-                keyExtractor={item=>item.id}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-            />
-        </View>
-        <View>
-
-        </View>
+        <FlatList
+            data={categories}
+            renderItem={({item})=> <RecipeCategory category={item}/>}
+            keyExtractor={item=> item.id}
+        />
 
 
     </SafeAreaView>
@@ -57,8 +47,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  }
+    container: {
+        flex: 1,
+        backgroundColor: "#fff"
+    },
+    categoryName:{
+        fontSize: 22,
+        fontWeight: "bold",
+        marginLeft: 20,
+        color: "#000"
+    }
 });
