@@ -15,8 +15,9 @@ export type RecipeCardProps = {
 
 const SimilarRecipeCard = (props: RecipeCardProps) => {
 
+
     const goToRecipe = () => {
-        // got to recipe source
+        //go to source url
         WebBrowser.openBrowserAsync(props.recipe.sourceUrl);
     }
     return (
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         justifyContent: "center",
-        marginHorizontal: 15,
+        marginHorizontal: 17,
         shadowColor: "#000",
         shadowOpacity: 0.5,
         elevation: 10,

@@ -6,7 +6,7 @@ import { RootTabScreenProps } from '../types';
 import * as WebBrowser from 'expo-web-browser';
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import IngredientCard from "../components/IngredientCard";
 import {Entypo, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 
@@ -15,7 +15,7 @@ import NutrientCard from "../components/NutrientCard";
 import EquipmentCard from "../components/EquipmentCard";
 
 
-export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function RecipeScreen() {
 
     const [recipe,setRecipe] = useState([]);
     const route = useRoute();
@@ -24,6 +24,9 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
     const [equipments,setEquipments] = useState([]);
     const [similarRecipes,setSimilarRecipes] = useState([]);
     const [nutrition,setNutrition] = useState([]);
+
+    const navigation = useNavigation();
+
 
 
     const getRecipe = () => {
@@ -51,8 +54,11 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
 
     const goToFullRecipe = () => {
         // got to recipe source
-        WebBrowser.openBrowserAsync(recipe.sourceUrl);
+        // WebBrowser.openBrowserAsync(recipe.sourceUrl);
 
+        navigation.navigate("Instruction",{
+            id: recipeId
+        });
     }
 
     const getSimilarRecipes = () => {
@@ -96,7 +102,6 @@ export default function RecipeScreen({ navigation }: RootTabScreenProps<'TabOne'
                 // always executed
             });
     }
-
 
     useEffect(()=>{
         getRecipe();

@@ -19,6 +19,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import RecipeScreen from "../screens/RecipeScreen";
+import InstructionScreen from "../screens/InstructionScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -38,9 +39,19 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="Recipe" component={RecipeScreen} options={{ headerShown: false }} />
+    <Stack.Navigator screenOptions={{
+        headerTintColor: "#FF7878"
+    }}
+    >
+        <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name="Recipe" component={RecipeScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+            name="Instruction"
+            component={InstructionScreen}
+            options={{
+                title: "Instructions"
+            }}
+        />
 
     </Stack.Navigator>
   );
@@ -65,24 +76,10 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
+        options={{
+            title: 'Tab One',
+            tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,
+        }}
       />
       <BottomTab.Screen
         name="TabTwo"

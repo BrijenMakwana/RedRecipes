@@ -22,6 +22,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           // handle success
           // console.log(response.data.recipes);
           setRecipes(response.data.recipes)
+
         })
         .catch(function (error) {
           // handle error
