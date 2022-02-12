@@ -19,6 +19,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import RecipeScreen from "../screens/RecipeScreen";
 import InstructionScreen from "../screens/InstructionScreen";
+import VideoScreen from "../screens/VideoScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -96,6 +97,14 @@ function BottomTabNavigator() {
             tabBarIcon: ({ color }) => <EvilIcons name="search" size={35} color={color} />,
         }}
       />
+        <BottomTab.Screen
+            name="Video"
+            component={VideoScreen}
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ color }) => <FontAwesome name="video-camera" size={24} color={color} />,
+            }}
+        />
     </BottomTab.Navigator>
   );
 }

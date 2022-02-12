@@ -1,4 +1,4 @@
-import {Dimensions, FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, Platform, SafeAreaView, StyleSheet} from 'react-native';
 
 import { RootTabScreenProps } from '../types';
 
@@ -48,6 +48,9 @@ export default function HomeScreen() {
             renderItem={({item})=> <RecipeCategory category={item}/>}
             keyExtractor={item=> item.id}
             showsVerticalScrollIndicator={false}
+            style={{
+                marginTop: Platform.OS === "android" ? 40 : 0
+            }}
         />
 
 
@@ -58,6 +61,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+
     }
 });

@@ -1,4 +1,4 @@
-import {Dimensions, FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, Platform, SafeAreaView, StyleSheet} from 'react-native';
 
 
 import { Text, View } from '../components/Themed';

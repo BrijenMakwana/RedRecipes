@@ -1,4 +1,4 @@
-import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
+import {FlatList, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 
 
 import SearchBar from "../components/SearchBar";
@@ -14,13 +14,14 @@ export default function SearchScreen() {
     axios.get('https://api.spoonacular.com/recipes/complexSearch',{
       params:{
         apiKey: "",
-        query: searchText
+        query: searchText,
+          number: 50
       }
 
     })
         .then((response)=> {
           // handle success
-          // console.log(response.data.results);
+
           setRecipes(response.data.results);
 
 
@@ -40,17 +41,25 @@ export default function SearchScreen() {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <SearchBar
-          searchText={searchText}
-          onChangeText={(text)=>setSearchText(text)}
-          onSubmit={gerSearchedRecipes}
-          onClear={clearSearch}
-      />
-        <View>
+
+        <View style={{
+            marginTop: Platform.OS === "android" ? 50 : 0
+        }}>
             <FlatList
                 data={recipes}
                 renderItem={({item})=> <SearchedRecipeCard recipe={item}/>}
                 keyExtractor={item=> item.id}
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={
+                    <SearchBar
+                        placeholder="search recipe here"
+                        searchText={searchText}
+                        onChangeText={(text)=>setSearchText(text)}
+                        onSubmit={gerSearchedRecipes}
+                        onClear={clearSearch}
+                    />
+                }
+
             />
         </View>
     </SafeAreaView>

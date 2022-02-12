@@ -3,6 +3,7 @@ import {StyleSheet, View, TextInput, Pressable} from "react-native";
 import { FontAwesome, MaterialIcons} from "@expo/vector-icons";
 
 export type SearchBarProps ={
+    placeholder: string;
     searchText: string;
     onChangeText: (text: string) => void;
     onSubmit: () => void;
@@ -17,7 +18,7 @@ const SearchBar = (props: SearchBarProps) => {
             <FontAwesome name="search" size={20} color="#FF7878" />
             {/*    texInput for search */}
             <TextInput
-                placeholder="search recipe here"
+                placeholder={props.placeholder}
                 value={props.searchText}
                 onChangeText={props.onChangeText}
                 onSubmitEditing={props.onSubmit}

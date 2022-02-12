@@ -21,13 +21,14 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
     }
 
     return (
-        <Pressable style={styles.container}>
+        <Pressable style={styles.container} onPress={goToRecipe}>
         {/*    recipe image */}
             <Image
                 source={{
                     uri: props.recipe.image
                 }}
                 style={styles.image}
+                resizeMode= "cover"
             />
         {/*    recipe name */}
             <Text style={styles.name}>
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         flexDirection: "row",
-        width: "90%",
+        width: "85%",
         alignSelf: "center",
         borderRadius: 30,
         shadowColor: "#000",
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
             width: 5
         },
         backgroundColor: "#fff",
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 10
     },
     image:{
         height: 150,
@@ -65,7 +67,9 @@ const styles = StyleSheet.create({
     name:{
         fontSize: 20,
         width: 150,
-        marginLeft: 10
+        marginLeft: 10,
+        fontWeight: "bold",
+
 
     }
 
