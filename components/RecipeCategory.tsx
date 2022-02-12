@@ -47,7 +47,7 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
         getRandomRecipes();
     },[])
     return (
-            <View style={styles.categoryName}>
+            <View style={styles.container}>
                 <Text style={styles.categoryName}>{props.category.categoryName}</Text>
                 <FlatList
                     data={recipes}
@@ -65,12 +65,13 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginTop: 15
     },
     categoryName:{
         fontSize: 22,
         fontWeight: "bold",
-        marginLeft: 20,
+        marginLeft: 15,
         color: "#000"
     }
 });

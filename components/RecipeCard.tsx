@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         width: 250,
-        marginLeft: 30,
+        marginLeft: 20,
         shadowColor: "#000",
         shadowOpacity: 0.5,
         elevation: 10,

@@ -20,7 +20,7 @@ export default function InstructionScreen() {
     const getInstructions = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions`,{
             params:{
-                apiKey: "01029f2bace74e86a0a7f36c3f5a31e4"
+                apiKey: ""
             }
 
         })

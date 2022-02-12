@@ -2,8 +2,7 @@ import {Dimensions, FlatList, SafeAreaView, StyleSheet, Image, ScrollView, Press
 
 
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-import * as WebBrowser from 'expo-web-browser';
+
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";

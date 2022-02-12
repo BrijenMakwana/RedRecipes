@@ -13,7 +13,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         {
             id: "1",
             categoryName: "Trending Recipes",
-            tags: "Paleo"
+            tags: "paleo"
         },
         {
             id: "2",
@@ -29,7 +29,18 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
             id: "4",
             categoryName: "Full of Sweetness",
             tags: "dessert"
+        },
+        {
+            id: "5",
+            categoryName: "Problem with Gluten?",
+            tags: "gluten free"
+        },
+        {
+            id: "6",
+            categoryName: "Fan of Indian Food",
+            tags: "indian"
         }
+
     ]);
 
 
@@ -39,6 +50,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
             data={categories}
             renderItem={({item})=> <RecipeCategory category={item}/>}
             keyExtractor={item=> item.id}
+            showsVerticalScrollIndicator={false}
         />
 
 
@@ -50,11 +62,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff"
-    },
-    categoryName:{
-        fontSize: 22,
-        fontWeight: "bold",
-        marginLeft: 20,
-        color: "#000"
     }
 });
