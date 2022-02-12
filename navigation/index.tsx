@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import {EvilIcons, FontAwesome, MaterialIcons} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,8 +12,7 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
+
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
@@ -44,12 +43,20 @@ function RootNavigator() {
     }}
     >
         <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="Recipe" component={RecipeScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+            name="Recipe"
+            component={RecipeScreen}
+            options={{
+                title: "Recipe Detail",
+                headerBackTitle: "Back"
+            }}
+        />
         <Stack.Screen
             name="Instruction"
             component={InstructionScreen}
             options={{
-                title: "Instructions"
+                title: "Instructions",
+                headerBackTitle: "Back"
             }}
         />
 
@@ -77,16 +84,16 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={{
-            title: 'Tab One',
-            tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,
+            tabBarShowLabel: false,
+            tabBarIcon: ({color}) => <MaterialIcons name="food-bank" size={35} color={color} />,
         }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            tabBarShowLabel: false,
+            tabBarIcon: ({ color }) => <EvilIcons name="search" size={35} color={color} />,
         }}
       />
     </BottomTab.Navigator>
