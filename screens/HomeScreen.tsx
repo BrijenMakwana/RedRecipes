@@ -1,14 +1,11 @@
 import {Dimensions, FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
-
-import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
-import RecipeCard from "../components/RecipeCard";
-import axios from "axios";
-import {useEffect, useState} from "react";
+
+import { useState} from "react";
 import RecipeCategory from "../components/RecipeCategory";
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function HomeScreen() {
     const [categories,setCategories] = useState([
         {
             id: "1",

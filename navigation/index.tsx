@@ -13,8 +13,8 @@ import { ColorSchemeName, Pressable } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import RecipeScreen from "../screens/RecipeScreen";
@@ -75,22 +75,22 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
           headerShown: false
       }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
             tabBarShowLabel: false,
             tabBarIcon: ({color}) => <MaterialIcons name="food-bank" size={35} color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Search"
+        component={SearchScreen}
         options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ color }) => <EvilIcons name="search" size={35} color={color} />,

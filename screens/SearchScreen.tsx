@@ -6,7 +6,7 @@ import {useState} from "react";
 import axios from "axios";
 import SearchedRecipeCard from "../components/SearchedRecipeCard";
 
-export default function TabTwoScreen() {
+export default function SearchScreen() {
   const [recipes,setRecipes] = useState([]);
   const [searchText,setSearchText] = useState("");
 

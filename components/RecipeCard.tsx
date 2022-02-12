@@ -15,7 +15,6 @@ export type RecipeCardProps = {
 }
 
 const RecipeCard = (props: RecipeCardProps) => {
-    // const ColorCode = 'rgb(' + (Math.floor(Math.random() * 256))*(1/4) + ',' + (Math.floor(Math.random() * 256))*(1/2) + ',' + (Math.floor(Math.random() * 256))*(3/4) + ')';
 
     const navigation = useNavigation();
 
