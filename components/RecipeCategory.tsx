@@ -21,7 +21,7 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
     const [recipes,setRecipes] = useState([]);
 
     const getRandomRecipes = () => {
-        axios.get('https://api.spoonacular.com/recipes/random?number=50',{
+        axios.get('https://api.spoonacular.com/recipes/random?number=25',{
             params:{
                 apiKey: "",
                 tags: props.category.tags

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
+import {AntDesign} from "@expo/vector-icons";
 
 export type RecipeVideoProps = {
     recipeVideo: {
@@ -38,6 +39,7 @@ const RecipeVideo = (props: RecipeVideoProps) => {
             <Text style={styles.title} numberOfLines={1}>{props.recipeVideo.shortTitle}</Text>
             {/*    video duration */}
             <View style={styles.duration}>
+                <AntDesign name="youtube" size={24} color="#fff" />
                 <Text style={styles.time}>{Math.round(props.recipeVideo.length/60)} min</Text>
             </View>
         </Pressable>
@@ -80,19 +82,22 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     duration:{
-        width: 60,
-        height: 60,
+        width: 100,
+        height: 40,
         position: "absolute",
         backgroundColor: "#FF7878",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-around",
         borderRadius: 30,
-        top: 150,
-        right: 20
+        top: 160,
+        right: 20,
+        flexDirection: "row",
+
     },
     time:{
         fontSize: 15,
         fontWeight: "bold",
-        color: "#fff"
+        color: "#fff",
+
     }
 });

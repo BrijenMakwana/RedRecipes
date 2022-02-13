@@ -63,7 +63,8 @@ export default function RecipeScreen() {
     const getSimilarRecipes = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/similar`,{
             params:{
-                apiKey: ""
+                apiKey: "",
+                normalize: true
             }
 
         })
@@ -101,6 +102,27 @@ export default function RecipeScreen() {
                 // always executed
             });
     }
+
+    // const getTaste = () => {
+    //     axios.get(`https://api.spoonacular.com/recipes/${recipeId}/tasteWidget.json`,{
+    //         params:{
+    //             apiKey: "aec1c681869d4aff8737283c1a15a3c5"
+    //         }
+    //
+    //     })
+    //         .then((response)=> {
+    //             // handle success
+    //             console.log(response.data);
+    //
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //         })
+    //         .then(function () {
+    //             // always executed
+    //         });
+    // }
 
     useEffect(()=>{
         getRecipe();

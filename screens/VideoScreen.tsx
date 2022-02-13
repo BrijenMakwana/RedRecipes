@@ -1,4 +1,4 @@
-import {FlatList, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 
 
 import SearchBar from "../components/SearchBar";
@@ -10,6 +10,7 @@ import RecipeVideo from "../components/RecipeVideo";
 export default function VideoScreen() {
     const [recipes,setRecipes] = useState([]);
     const [searchText,setSearchText] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const getSearchedRecipeVideos = () => {
         axios.get('https://api.spoonacular.com/food/videos/search',{
@@ -22,7 +23,7 @@ export default function VideoScreen() {
         })
             .then((response)=> {
                 // handle success
-                console.log(response.data.videos)
+
                 setRecipes(response.data.videos);
 
 
@@ -36,6 +37,13 @@ export default function VideoScreen() {
             });
     }
 
+    const showSearchResult = () => {
+        setIsLoading(true);
+        getSearchedRecipeVideos();
+        setTimeout(()=>{
+            setIsLoading(false);
+        },2000)
+    }
     const clearSearch = () => {
         setSearchText("");
         setRecipes([]);
@@ -45,6 +53,8 @@ export default function VideoScreen() {
             <View style={{
                 marginTop: Platform.OS === "android" ? 50 : 0
             }}>
+                {isLoading && <ActivityIndicator color="#FF7878"/>}
+                { !isLoading &&
                 <FlatList
                     data={recipes}
                     renderItem={({item})=> <RecipeVideo recipeVideo={item}/>}
@@ -55,11 +65,12 @@ export default function VideoScreen() {
                         placeholder="search recipe videos here"
                         searchText={searchText}
                         onChangeText={(text)=>setSearchText(text)}
-                        onSubmit={getSearchedRecipeVideos}
+                        onSubmit={showSearchResult}
                         onClear={clearSearch}
                     />
                     }
                 />
+                }
             </View>
         </SafeAreaView>
     );

@@ -11,18 +11,18 @@ export default function SearchScreen() {
   const [searchText,setSearchText] = useState("");
 
   const gerSearchedRecipes = () => {
-    axios.get('https://api.spoonacular.com/recipes/complexSearch',{
+    axios.get('https://api.spoonacular.com/recipes/autocomplete',{
       params:{
-        apiKey: "",
-        query: searchText,
-          number: 50
+          apiKey: "",
+          query: searchText,
+          number: 25
       }
 
     })
         .then((response)=> {
           // handle success
 
-          setRecipes(response.data.results);
+          setRecipes(response.data);
 
 
         })
@@ -34,6 +34,7 @@ export default function SearchScreen() {
           // always executed
         });
   }
+
 
   const clearSearch = () => {
     setSearchText("");
