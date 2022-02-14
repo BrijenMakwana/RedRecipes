@@ -13,6 +13,7 @@ const EquipmentCard = (props: EquipmentCardProps) => {
 
     return (
         <View style={styles.container}>
+            {/* equipment image */}
             <Image
                 source={{
                     uri: `https://spoonacular.com/cdn/equipment_100x100/${props.equipment.image}`
@@ -20,6 +21,7 @@ const EquipmentCard = (props: EquipmentCardProps) => {
                 style={styles.image}
                 resizeMode= "contain"
             />
+            {/* equipment name */}
             <Text style={styles.name} numberOfLines={2}>
                 {props.equipment.name}
             </Text>
@@ -32,9 +34,9 @@ export default EquipmentCard;
 const styles = StyleSheet.create({
     container:{
         alignItems: "center",
-        marginHorizontal: 10,
+        marginHorizontal: 5,
         justifyContent: "center",
-        width: 100
+        width: 80
     },
     image:{
         height: 50,

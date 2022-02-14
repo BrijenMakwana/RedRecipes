@@ -37,13 +37,7 @@ export default function VideoScreen() {
             });
     }
 
-    const showSearchResult = () => {
-        setIsLoading(true);
-        getSearchedRecipeVideos();
-        setTimeout(()=>{
-            setIsLoading(false);
-        },2000)
-    }
+
     const clearSearch = () => {
         setSearchText("");
         setRecipes([]);
@@ -65,7 +59,7 @@ export default function VideoScreen() {
                         placeholder="search recipe videos here"
                         searchText={searchText}
                         onChangeText={(text)=>setSearchText(text)}
-                        onSubmit={showSearchResult}
+                        onSubmit={getSearchedRecipeVideos}
                         onClear={clearSearch}
                     />
                     }

@@ -28,6 +28,7 @@ export type RootTabParamList = {
   Home: undefined;
   Search: undefined;
   Video: undefined;
+  GuessNutrition: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

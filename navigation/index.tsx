@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import {EvilIcons, FontAwesome, MaterialIcons} from '@expo/vector-icons';
+import {EvilIcons, FontAwesome, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,6 +20,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import RecipeScreen from "../screens/RecipeScreen";
 import InstructionScreen from "../screens/InstructionScreen";
 import VideoScreen from "../screens/VideoScreen";
+import GuessNutritionScreen from "../screens/GuessNutritionScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -103,6 +104,14 @@ function BottomTabNavigator() {
             options={{
                 tabBarShowLabel: false,
                 tabBarIcon: ({ color }) => <FontAwesome name="video-camera" size={24} color={color} />,
+            }}
+        />
+        <BottomTab.Screen
+            name="GuessNutrition"
+            component={GuessNutritionScreen}
+            options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ color }) => <MaterialCommunityIcons name="nutrition" size={30} color={color} />,
             }}
         />
     </BottomTab.Navigator>
