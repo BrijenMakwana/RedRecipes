@@ -1,11 +1,12 @@
-import {ActivityIndicator, FlatList, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, Platform, SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 
 import SearchBar from "../components/SearchBar";
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import SearchedRecipeCard from "../components/SearchedRecipeCard";
 import RecipeVideo from "../components/RecipeVideo";
+import {AntDesign} from "@expo/vector-icons";
 
 export default function VideoScreen() {
     const [recipes,setRecipes] = useState([]);

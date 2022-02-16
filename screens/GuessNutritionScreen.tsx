@@ -24,8 +24,7 @@ export default function GuessNutritionScreen() {
                 // handle success
 
                 setNutrition(response.data);
-                console.log(response.data);
-                setShowResult(true);
+
             })
             .catch(function (error) {
                 // handle error
@@ -47,7 +46,6 @@ export default function GuessNutritionScreen() {
         })
             .then((response)=> {
                 // handle success
-                console.log(response.data.results[0].links.download);
                 setQueryImage(response.data.results[0].links.download);
             })
             .catch(function (error) {
@@ -60,8 +58,16 @@ export default function GuessNutritionScreen() {
     }
 
     const getResult = () => {
-        getQueryPhoto();
-        getNutrition();
+        if(searchText){
+            getQueryPhoto();
+            getNutrition().then(()=>
+                setShowResult(true)
+            );
+        }
+        else{
+            alert("Please type dish name");
+        }
+
     }
 
     const clearSearch = () => {
@@ -83,6 +89,7 @@ export default function GuessNutritionScreen() {
                 showResult &&
                 (
                     <View style={styles.nutritionContainer}>
+                        <Text style={styles.title}>nutrition</Text>
                         <Image
                             source={{
                                 uri: queryImage
@@ -130,11 +137,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%"
     },
+    title:{
+        fontSize: 35,
+        textTransform: "capitalize",
+        fontWeight: "bold",
+        color: "#FF7878"
+    },
     image:{
         height: 300,
         width: 300,
         marginBottom: 20,
         borderRadius: 150,
+        marginTop: 20
 
     },
     dataContainer:{
