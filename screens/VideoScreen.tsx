@@ -7,6 +7,8 @@ import axios from "axios";
 import SearchedRecipeCard from "../components/SearchedRecipeCard";
 import RecipeVideo from "../components/RecipeVideo";
 import {AntDesign} from "@expo/vector-icons";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export default function VideoScreen() {
     const [recipes,setRecipes] = useState([]);
@@ -38,13 +40,17 @@ export default function VideoScreen() {
             });
     }
 
-
     const clearSearch = () => {
         setSearchText("");
         setRecipes([]);
     }
+
+    const colorScheme = useColorScheme();
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
             <View style={{
                 marginTop: Platform.OS === "android" ? 50 : 0
             }}>
@@ -74,6 +80,5 @@ export default function VideoScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
     }
 });

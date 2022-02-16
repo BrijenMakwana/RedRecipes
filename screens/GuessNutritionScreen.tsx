@@ -5,12 +5,16 @@ import SearchBar from "../components/SearchBar";
 import {useState} from "react";
 import axios from "axios";
 import SearchedRecipeCard from "../components/SearchedRecipeCard";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export default function GuessNutritionScreen() {
     const [searchText,setSearchText] = useState("");
     const [queryImage,setQueryImage] = useState("");
     const [nutrition,setNutrition] = useState({});
     const [showResult,setShowResult] = useState(false);
+
+    const colorScheme = useColorScheme();
 
     const getNutrition = async () => {
        await axios.get('https://api.spoonacular.com/recipes/guessNutrition',{
@@ -76,7 +80,12 @@ export default function GuessNutritionScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+            style={[styles.container,
+                {
+                    backgroundColor: Colors[colorScheme].background
+            }]}
+        >
 
             <SearchBar
                 placeholder= "type dish name here"
@@ -89,7 +98,13 @@ export default function GuessNutritionScreen() {
                 showResult &&
                 (
                     <View style={styles.nutritionContainer}>
-                        <Text style={styles.title}>nutrition</Text>
+                        <Text
+                            style={[styles.title,{
+                                color: Colors[colorScheme].tint
+                            }]}
+                        >
+                            nutrition
+                        </Text>
                         <Image
                             source={{
                                 uri: queryImage
@@ -98,23 +113,55 @@ export default function GuessNutritionScreen() {
                             resizeMode="cover"
                         />
                         <View style={styles.dataContainer}>
-                            <Text style={styles.heading}>calories:</Text>
-                            <Text style={styles.data}>{nutrition.calories.value} {nutrition.calories.unit}</Text>
+                            <Text style={[styles.heading,{
+                                color: Colors[colorScheme].tint
+                            }]}>
+                                calories:
+                            </Text>
+                            <Text style={[styles.data,{
+                                color: Colors[colorScheme].text
+                            }]}>
+                                {nutrition.calories.value} {nutrition.calories.unit}
+                            </Text>
                         </View>
 
                         <View style={styles.dataContainer}>
-                            <Text style={styles.heading}>carbs:</Text>
-                            <Text style={styles.data}>{nutrition.carbs.value} {nutrition.carbs.unit}</Text>
+                            <Text style={[styles.heading,{
+                                color: Colors[colorScheme].tint
+                            }]}>
+                                carbs:
+                            </Text>
+                            <Text style={[styles.data,{
+                                color: Colors[colorScheme].text
+                            }]}>
+                                {nutrition.carbs.value} {nutrition.carbs.unit}
+                            </Text>
                         </View>
 
                         <View style={styles.dataContainer}>
-                            <Text style={styles.heading}>fat:</Text>
-                            <Text style={styles.data}>{nutrition.fat.value} {nutrition.fat.unit}</Text>
+                            <Text style={[styles.heading,{
+                                color: Colors[colorScheme].tint
+                            }]}>
+                                fat:
+                            </Text>
+                            <Text style={[styles.data,{
+                                color: Colors[colorScheme].text
+                            }]}>
+                                {nutrition.fat.value} {nutrition.fat.unit}
+                            </Text>
                         </View>
 
                         <View style={styles.dataContainer}>
-                            <Text style={styles.heading}>protein:</Text>
-                            <Text style={styles.data}>{nutrition.protein.value} {nutrition.protein.unit}</Text>
+                            <Text style={[styles.heading,{
+                                color: Colors[colorScheme].tint
+                            }]}>
+                                protein:
+                            </Text>
+                            <Text style={[styles.data,{
+                                color: Colors[colorScheme].text
+                            }]}>
+                                {nutrition.protein.value} {nutrition.protein.unit}
+                            </Text>
                         </View>
 
                     </View>
@@ -128,7 +175,6 @@ export default function GuessNutritionScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
         marginTop: Platform.OS === "android" ? 50 : 0
     },
     nutritionContainer:{
@@ -141,7 +187,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
         textTransform: "capitalize",
         fontWeight: "bold",
-        color: "#FF7878"
     },
     image:{
         height: 300,
@@ -157,17 +202,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         justifyContent: "space-between",
         width: "80%",
-
     },
     heading:{
         fontSize: 20,
-        color: "#FF7878",
         fontWeight: "bold",
         textTransform: "capitalize"
     },
     data:{
         fontSize: 18,
-        color: "#000",
         fontWeight: "500",
 
     }

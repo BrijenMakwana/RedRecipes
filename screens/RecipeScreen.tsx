@@ -12,6 +12,8 @@ import {Entypo, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import SimilarRecipeCard from "../components/SimilarRecipeCard";
 import NutrientCard from "../components/NutrientCard";
 import EquipmentCard from "../components/EquipmentCard";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 
 export default function RecipeScreen() {
@@ -26,6 +28,7 @@ export default function RecipeScreen() {
 
     const navigation = useNavigation();
 
+    const colorScheme = useColorScheme();
 
 
     const getRecipe = () => {
@@ -131,8 +134,10 @@ export default function RecipeScreen() {
 
     },[])
     return (
-        <View style={styles.container}>
-            <SafeAreaView>
+            <SafeAreaView
+                style={[styles.container,{
+                    backgroundColor: Colors[colorScheme].background
+                }]}>
 
                 {/*   nutrition information */}
                 <View style={styles.nutritionContainer}>
@@ -144,7 +149,9 @@ export default function RecipeScreen() {
                         ListHeaderComponent={
                         <View>
                             {/* title */}
-                            <Text style={styles.title}>
+                            <Text style={[styles.title,{
+                                color: Colors[colorScheme].text
+                            }]}>
                                 {recipe.title}
                             </Text>
                             {/* image   */}
@@ -157,13 +164,24 @@ export default function RecipeScreen() {
                                     resizeMode= "cover"
                                 />
                                 {/* duration*/}
-                                <View style={styles.duration}>
-                                    <Text style={styles.time} numberOfLines={2}>{recipe.readyInMinutes} min</Text>
+                                <View style={[styles.duration,{
+                                    backgroundColor: Colors[colorScheme].tint
+                                }]}>
+                                    <Text
+                                        style={[styles.time,{
+                                            color: Colors[colorScheme].background
+                                        }]}
+                                        numberOfLines={2}
+                                    >
+                                        {recipe.readyInMinutes} min
+                                    </Text>
                                 </View>
 
                                 {/* full recipe*/}
                                 <Pressable
-                                    style={styles.fullRecipe}
+                                    style={[styles.fullRecipe,{
+                                        backgroundColor: Colors[colorScheme].tint
+                                    }]}
                                     onPress={goToFullRecipe}
                                 >
                                     <Ionicons name="play" size={24} color="#fff" />
@@ -171,7 +189,9 @@ export default function RecipeScreen() {
                             </View>
                             {/* Ingredients*/}
                             <View style={styles.ingredientContainer}>
-                                <View style={styles.ingredientIconContainer}>
+                                <View style={[styles.ingredientIconContainer,{
+                                    backgroundColor: Colors[colorScheme].tint
+                                }]}>
                                     <Entypo
                                         name="shopping-cart"
                                         size={30} color="#fff"
@@ -189,7 +209,9 @@ export default function RecipeScreen() {
                             </View>
                             {/* equipments*/}
                             <View style={styles.ingredientContainer}>
-                                <View style={styles.ingredientIconContainer}>
+                                <View style={[styles.ingredientIconContainer,{
+                                    backgroundColor: Colors[colorScheme].tint
+                                }]}>
                                     <MaterialCommunityIcons
                                         name="toaster-oven"
                                         size={30}
@@ -206,7 +228,11 @@ export default function RecipeScreen() {
                             </View>
                             {/*    similar recipes*/}
                             <View style={styles.similarRecipesContainer}>
-                                <Text style={styles.similarRecipeTitle}>Related Recipes</Text>
+                                <Text style={[styles.similarRecipeTitle,{
+                                    color: Colors[colorScheme].text
+                                }]}>
+                                    Related Recipes
+                                </Text>
                                 <FlatList
                                     data={similarRecipes}
                                     renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
@@ -215,33 +241,27 @@ export default function RecipeScreen() {
                                     showsHorizontalScrollIndicator={false}
                                 />
                             </View>
-                            {/* taste of the recipe */}
-                            {/*<View>*/}
-                            {/*    <Image*/}
-                            {/*        source={}*/}
-                            {/*    />*/}
-                            {/*</View>*/}
-                            <Text style={styles.nutritionTitle}>Nutrition</Text>
+                            <Text
+                                style={[styles.nutritionTitle,{
+                                    color: Colors[colorScheme].text
+                                }]}>Nutrition</Text>
                         </View>
                         }
                     />
                 </View>
             </SafeAreaView>
-        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
         marginTop: 10,
         marginHorizontal: 10,
-        color: "#000",
         textAlign: "center"
     },
     imageContainer:{
@@ -259,7 +279,6 @@ const styles = StyleSheet.create({
         height: 60,
         width: 60,
         padding: 5,
-        backgroundColor: "#FF7878",
         position: "absolute",
         right: 120,
         bottom: -22,
@@ -269,13 +288,11 @@ const styles = StyleSheet.create({
     },
     time:{
         fontSize: 15,
-        color: "#fff",
         fontWeight: "bold"
     },
     fullRecipe: {
         height: 50,
         width: 50,
-        backgroundColor: "#FF7878",
         position: "absolute",
         right: 110,
         top: -20,
@@ -294,14 +311,11 @@ const styles = StyleSheet.create({
         height: 60,
         width: 60,
         borderRadius: 35,
-        backgroundColor: "#FF7878",
         marginHorizontal: 25
     },
     similarRecipesContainer:{
         marginTop: 20,
         height: 250,
-        // backgroundColor: "red"
-
     },
     similarRecipeTitle:{
         fontSize: 20,

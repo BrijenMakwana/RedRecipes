@@ -6,6 +6,8 @@ import { RootTabScreenProps } from '../types';
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type RecipeCategoryProps = {
     category: {
@@ -43,12 +45,22 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
             });
     }
 
+    const colorScheme = useColorScheme();
+
     useEffect(()=>{
         getRandomRecipes();
     },[])
     return (
-            <View style={styles.container}>
-                <Text style={styles.categoryName}>{props.category.categoryName}</Text>
+            <View style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}>
+                <Text
+                    style={[styles.categoryName,{
+                        color: Colors[colorScheme].text
+                    }]}
+                >
+                    {props.category.categoryName}
+                </Text>
                 <FlatList
                     data={recipes}
                     renderItem={({item})=> <RecipeCard recipe={item}/>}
@@ -65,13 +77,11 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#fff",
         marginTop: 15
     },
     categoryName:{
         fontSize: 22,
         fontWeight: "bold",
         marginLeft: 15,
-        color: "#000"
     }
 });

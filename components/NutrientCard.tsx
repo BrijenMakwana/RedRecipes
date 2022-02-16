@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type NutrientCardProps = {
     nutrient: {
@@ -12,11 +14,20 @@ export type NutrientCardProps = {
 
 
 const NutrientCard = (props: NutrientCardProps) => {
+    const colorScheme = useColorScheme();
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.name}>{props.nutrient.name}</Text>
-            <Text style={styles.data}>{props.nutrient.amount} {props.nutrient.unit}</Text>
+        <View style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
+            <Text style={[styles.name,{
+                color: Colors[colorScheme].tint
+            }]}>
+                {props.nutrient.name}
+            </Text>
+            <Text style={[styles.data,{
+                color: Colors[colorScheme].text
+            }]}>{props.nutrient.amount} {props.nutrient.unit}</Text>
         </View>
     );
 };
@@ -27,25 +38,19 @@ const styles = StyleSheet.create({
     container:{
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "#fff",
         alignSelf: "center",
         width: "100%",
         padding: 7,
         marginVertical: 5,
         flexDirection: "row",
-
-
-
     },
     name: {
         fontSize: 17,
-        color: "#FF7878",
         fontWeight: "bold",
         marginLeft: 25
     },
     data:{
         fontSize: 15,
-        color: "#000",
         fontWeight: "500",
         marginRight: 25
     }

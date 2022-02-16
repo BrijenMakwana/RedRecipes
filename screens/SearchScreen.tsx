@@ -5,6 +5,8 @@ import SearchBar from "../components/SearchBar";
 import {useState} from "react";
 import axios from "axios";
 import SearchedRecipeCard from "../components/SearchedRecipeCard";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export default function SearchScreen() {
   const [recipes,setRecipes] = useState([]);
@@ -35,13 +37,16 @@ export default function SearchScreen() {
         });
   }
 
+  const colorScheme = useColorScheme();
 
   const clearSearch = () => {
     setSearchText("");
     setRecipes([]);
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{
+        backgroundColor: Colors[colorScheme].background
+    }]}>
 
         <View style={{
             marginTop: Platform.OS === "android" ? 50 : 0
@@ -69,7 +74,6 @@ export default function SearchScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-      backgroundColor: "#fff"
+      flex: 1,
   }
 });

@@ -8,6 +8,8 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {useRoute} from "@react-navigation/native";
 import InstructionComponent from "../components/InstructionComponent";
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 
 export default function InstructionScreen() {
 
@@ -38,11 +40,16 @@ export default function InstructionScreen() {
             });
     }
 
+    const colorScheme = useColorScheme();
+
     useEffect(()=>{
         getInstructions();
     },[])
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+            style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}>
             <FlatList
                 data={instructions}
                 renderItem={({item})=> <InstructionComponent instruction={item}/>}
@@ -57,6 +64,5 @@ export default function InstructionScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
     }
 });

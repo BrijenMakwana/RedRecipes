@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type RecipeCardProps = {
     recipe:{
@@ -20,17 +22,33 @@ const SimilarRecipeCard = (props: RecipeCardProps) => {
         //go to source url
         WebBrowser.openBrowserAsync(props.recipe.sourceUrl);
     }
+
+    const colorScheme = useColorScheme();
+
     return (
-        <Pressable style={styles.container} onPress={goToRecipe}>
+        <Pressable
+            style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}
+            onPress={goToRecipe}
+        >
             <Text
-                style={styles.title}
+                style={[styles.title,{
+                    color: Colors[colorScheme].text
+                }]}
                 numberOfLines={5}
             >
                 {props.recipe.title}
             </Text>
             {/* duration*/}
-            <View style={styles.duration}>
-                <Text style={styles.time}>{props.recipe.readyInMinutes} min</Text>
+            <View style={[styles.duration,{
+                backgroundColor: Colors[colorScheme].tint
+            }]}>
+                <Text style={[styles.time,{
+                    color: Colors[colorScheme].background
+                }]}>
+                    {props.recipe.readyInMinutes} min
+                </Text>
             </View>
         </Pressable>
     );
@@ -50,7 +68,6 @@ const styles = StyleSheet.create({
             height: 5,
             width: 5
         },
-        backgroundColor: "#fff",
         borderRadius: 30,
         height: 170,
         width: 170,
@@ -66,7 +83,6 @@ const styles = StyleSheet.create({
         width: 70,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#FF7878",
         position: "absolute",
         borderRadius: 25,
         right: 25,
@@ -76,7 +92,5 @@ const styles = StyleSheet.create({
     time:{
         fontSize: 17,
         padding: 1,
-        color: "#fff"
-
     }
 });

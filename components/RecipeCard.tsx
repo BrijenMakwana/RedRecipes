@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type RecipeCardProps = {
     recipe:{
@@ -9,7 +11,6 @@ export type RecipeCardProps = {
        readyInMinutes: number;
        title: string;
        dishTypes: [string];
-       summary: string;
 
     }
 }
@@ -18,13 +19,20 @@ const RecipeCard = (props: RecipeCardProps) => {
 
     const navigation = useNavigation();
 
+    const colorScheme = useColorScheme();
+
     const goToRecipe = () => {
         navigation.navigate("Recipe",{
             id: props.recipe.id
         })
     }
     return (
-        <Pressable style={styles.container} onPress={goToRecipe}>
+        <Pressable
+            style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}
+            onPress={goToRecipe}
+        >
 
                {/* image container*/}
                 <View style={styles.imageContainer}>
@@ -37,23 +45,38 @@ const RecipeCard = (props: RecipeCardProps) => {
                     />
                 </View>
                 {/* duration*/}
-                <View style={styles.duration}>
-                    <Text style={styles.timeText} numberOfLines={2}>{props.recipe.readyInMinutes} min</Text>
+                <View style={[styles.duration,{
+                    backgroundColor: Colors[colorScheme].tint
+                }]}>
+                    <Text
+                        style={[styles.timeText,{
+                            color: Colors[colorScheme].background
+                        }]}
+                        numberOfLines={2}
+                    >
+                        {props.recipe.readyInMinutes} min
+                    </Text>
                 </View>
                 {/* info */}
                 <View style={styles.info}>
                     {/* title */}
-                    <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
+                    <Text
+                        style={[styles.title,{
+                            color: Colors[colorScheme].text
+                        }]}
+                        numberOfLines={2}
+                        ellipsizeMode={"tail"}
+                    >
                         {props.recipe.title}
                     </Text>
                     {/* dish type*/}
-                    <Text style={styles.dishType}>
+                    <Text
+                        style={[styles.dishType,{
+                            color: Colors[colorScheme].text
+                        }]}
+                    >
                         {props.recipe.dishTypes[0]}
                     </Text>
-                    {/*/!* summary*!/*/}
-                    {/*<Text style={styles.summary} numberOfLines={7} ellipsizeMode={"tail"}>*/}
-                    {/*    {props.recipe.summary}*/}
-                    {/*</Text>*/}
                 </View>
         </Pressable>
     );
@@ -73,13 +96,10 @@ const styles = StyleSheet.create({
             height: 5,
             width: 5
         },
-        backgroundColor: "#fff",
         borderRadius: 30,
         marginVertical: 20
-
     },
     imageContainer: {
-
 
     },
     image:{
@@ -91,7 +111,6 @@ const styles = StyleSheet.create({
     },
     duration:{
         marginTop: 20,
-        backgroundColor: "#FF7878",
         borderRadius: 30,
         height: 60,
         width: 60,
@@ -106,29 +125,19 @@ const styles = StyleSheet.create({
     timeText:{
         fontSize: 15,
         fontWeight: "bold",
-        color: "#fff"
     },
     info:{
         marginTop: 35,
         padding: 10,
         marginBottom: 10
-
     },
     title:{
         fontSize: 18,
         fontWeight: "bold",
-        color: "#222831"
     },
     dishType:{
         marginTop: 5,
         fontSize: 16,
         fontWeight: "bold",
-        color: "#000"
-    },
-    summary: {
-        marginTop: 10,
-        fontSize: 17,
-        fontWeight: "600",
-        color: "#000"
     }
 });

@@ -39,9 +39,14 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+    const colorScheme = useColorScheme();
+
   return (
     <Stack.Navigator screenOptions={{
-        headerTintColor: "#FF7878"
+        headerTintColor: Colors[colorScheme].tint,
+        headerStyle:{
+            backgroundColor: Colors[colorScheme].background
+        }
     }}
     >
         <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
@@ -79,8 +84,11 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-          headerShown: false
+          tabBarActiveTintColor: Colors[colorScheme].tint,
+          headerShown: false,
+          tabBarStyle:{
+              backgroundColor: Colors[colorScheme].background
+          }
       }}>
       <BottomTab.Screen
         name="Home"

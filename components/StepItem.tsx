@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type StepItemProps = {
     number: number;
@@ -8,11 +10,22 @@ export type StepItemProps = {
 
 
 const StepItem = (props: StepItemProps) => {
+    const colorScheme = useColorScheme();
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.number}>Step: {props.number}</Text>
-            <Text style={styles.step}>{props.step}</Text>
+        <View style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
+            <Text style={[styles.number,{
+                color: Colors[colorScheme].tint
+            }]}>
+                Step: {props.number}
+            </Text>
+            <Text style={[styles.step,{
+                color: Colors[colorScheme].text
+            }]}>
+                {props.step}
+            </Text>
         </View>
     );
 };
@@ -21,21 +34,18 @@ export default StepItem;
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#fff",
         width: "100%",
         padding: 10,
         marginVertical: 5,
     },
     number:{
         fontSize: 20,
-        color: "#FF7878",
         fontWeight: "bold"
     },
     step:{
         fontSize: 17,
         marginTop: 7,
         fontWeight: "500",
-        color: "#000"
     }
 
 });

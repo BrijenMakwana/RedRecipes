@@ -4,6 +4,8 @@ import { RootTabScreenProps } from '../types';
 
 import { useState} from "react";
 import RecipeCategory from "../components/RecipeCategory";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export default function HomeScreen() {
     const [categories,setCategories] = useState([
@@ -40,9 +42,14 @@ export default function HomeScreen() {
 
     ]);
 
+    const colorScheme = useColorScheme();
+
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+        style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
         <FlatList
             data={categories}
             renderItem={({item})=> <RecipeCategory category={item}/>}
@@ -61,7 +68,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
 
     }
 });

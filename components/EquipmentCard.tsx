@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type EquipmentCardProps = {
     equipment: {
@@ -10,9 +12,12 @@ export type EquipmentCardProps = {
 
 
 const EquipmentCard = (props: EquipmentCardProps) => {
+    const colorScheme = useColorScheme();
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
             {/* equipment image */}
             <Image
                 source={{
@@ -22,7 +27,12 @@ const EquipmentCard = (props: EquipmentCardProps) => {
                 resizeMode= "contain"
             />
             {/* equipment name */}
-            <Text style={styles.name} numberOfLines={2}>
+            <Text
+                style={[styles.name,{
+                    color: Colors[colorScheme].tint
+                }]}
+                numberOfLines={2}
+            >
                 {props.equipment.name}
             </Text>
         </View>
@@ -46,7 +56,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textTransform: "capitalize",
         marginTop: 5,
-        color: "#FF7878",
         fontWeight: "bold",
         textAlign: "center"
     }

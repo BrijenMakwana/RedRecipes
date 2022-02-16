@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type IngredientCardProps = {
     ingredient: {
@@ -11,9 +13,12 @@ export type IngredientCardProps = {
 
 
 const IngredientCard = (props: IngredientCardProps) => {
+    const colorScheme = useColorScheme();
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background
+        }]}>
             {/* ingredient image */}
             <Image
                 source={{
@@ -23,7 +28,12 @@ const IngredientCard = (props: IngredientCardProps) => {
                 resizeMode= "contain"
             />
             {/* ingredient name */}
-            <Text style={styles.name} numberOfLines={2}>
+            <Text
+                style={[styles.name,{
+                    color: Colors[colorScheme].tint
+                }]}
+                numberOfLines={2}
+            >
                 {props.ingredient.name}
             </Text>
         </View>
@@ -48,7 +58,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textTransform: "capitalize",
         marginTop: 5,
-        color: "#FF7878",
         fontWeight: "bold",
         textAlign: "center"
     }

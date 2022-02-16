@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, TextInput, Pressable} from "react-native";
 import { FontAwesome, MaterialIcons} from "@expo/vector-icons";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type SearchBarProps ={
     placeholder: string;
@@ -11,9 +13,13 @@ export type SearchBarProps ={
 }
 
 const SearchBar = (props: SearchBarProps) => {
+    const colorScheme = useColorScheme();
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{
+            backgroundColor: Colors[colorScheme].background,
+            borderColor: Colors[colorScheme].tint
+        }]}>
             {/*   search icon */}
             <FontAwesome name="search" size={20} color="#FF7878" />
             {/*    texInput for search */}
@@ -37,11 +43,9 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#fff",
         flexDirection: "row",
         marginHorizontal: 10,
         borderWidth: 1,
-        borderColor: "#FF7878",
         borderRadius: 15,
         padding: 5,
         alignItems: "center",

@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type SearchedRecipeCardProps = {
     recipe:{
@@ -14,6 +16,8 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
 
     const navigation = useNavigation();
 
+    const colorScheme = useColorScheme();
+
     const goToRecipe = () => {
         navigation.navigate("Recipe",{
             id: props.recipe.id
@@ -21,7 +25,12 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
     }
 
     return (
-        <Pressable style={styles.container} onPress={goToRecipe}>
+        <Pressable
+            style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}
+            onPress={goToRecipe}
+        >
         {/*    recipe image */}
             <Image
                 source={{
@@ -31,7 +40,9 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
                 resizeMode= "cover"
             />
         {/*    recipe name */}
-            <Text style={styles.name}>
+            <Text style={[styles.name,{
+                color: Colors[colorScheme].text
+            }]}>
                 {props.recipe.title}
             </Text>
         </Pressable>
@@ -54,7 +65,6 @@ const styles = StyleSheet.create({
             height: 5,
             width: 5
         },
-        backgroundColor: "#fff",
         marginTop: 20,
         marginBottom: 10
     },
@@ -69,8 +79,6 @@ const styles = StyleSheet.create({
         width: 150,
         marginLeft: 10,
         fontWeight: "bold",
-
-
     }
 
 });

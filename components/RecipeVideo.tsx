@@ -3,6 +3,8 @@ import {StyleSheet, View, Text, Image, Dimensions, Pressable} from "react-native
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 import {AntDesign} from "@expo/vector-icons";
+import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../constants/Colors";
 
 export type RecipeVideoProps = {
     recipeVideo: {
@@ -19,12 +21,20 @@ const RecipeVideo = (props: RecipeVideoProps) => {
 
     const navigation = useNavigation();
 
+    const colorScheme = useColorScheme();
+
     const goToRecipe = () => {
         //go to source url
         WebBrowser.openBrowserAsync(`https://www.youtube.com/watch?v=${props.recipeVideo.youTubeId}`);
     }
+
     return (
-        <Pressable style={styles.container} onPress={goToRecipe}>
+        <Pressable
+            style={[styles.container,{
+                backgroundColor: Colors[colorScheme].background
+            }]}
+            onPress={goToRecipe}
+        >
             {/* video thumbnail */}
             <View style={styles.imageContainer}>
                 <Image
@@ -36,11 +46,21 @@ const RecipeVideo = (props: RecipeVideoProps) => {
                 />
             </View>
             {/*    video title */}
-            <Text style={styles.title} numberOfLines={1}>{props.recipeVideo.shortTitle}</Text>
+            <Text
+                style={[styles.title,{
+                    color: Colors[colorScheme].text
+                }]}
+                numberOfLines={1}>
+                {props.recipeVideo.shortTitle}
+            </Text>
             {/*    video duration */}
-            <View style={styles.duration}>
+            <View style={[styles.duration,{
+                backgroundColor: Colors[colorScheme].tint
+            }]}>
                 <AntDesign name="youtube" size={24} color="#fff" />
-                <Text style={styles.time}>{Math.round(props.recipeVideo.length/60)} min</Text>
+                <Text style={[styles.time,{
+                    color: Colors[colorScheme].background
+                }]}>{Math.round(props.recipeVideo.length/60)} min</Text>
             </View>
         </Pressable>
     );
@@ -58,7 +78,6 @@ const styles = StyleSheet.create({
             height: 5,
             width: 5
         },
-        backgroundColor: "#fff",
         borderRadius: 30,
         width: "90%",
         height: 270,
@@ -85,19 +104,15 @@ const styles = StyleSheet.create({
         width: 100,
         height: 40,
         position: "absolute",
-        backgroundColor: "#FF7878",
         alignItems: "center",
         justifyContent: "space-around",
         borderRadius: 30,
         top: 160,
         right: 20,
         flexDirection: "row",
-
     },
     time:{
         fontSize: 15,
         fontWeight: "bold",
-        color: "#fff",
-
     }
 });
