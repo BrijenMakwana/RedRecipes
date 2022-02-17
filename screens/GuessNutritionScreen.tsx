@@ -12,10 +12,13 @@ export default function GuessNutritionScreen() {
     const [searchText,setSearchText] = useState("");
     const [queryImage,setQueryImage] = useState("");
     const [nutrition,setNutrition] = useState({});
+
+    //only to show result when user enters
     const [showResult,setShowResult] = useState(false);
 
     const colorScheme = useColorScheme();
 
+    //get Nutrition based on user search
     const getNutrition = async () => {
        await axios.get('https://api.spoonacular.com/recipes/guessNutrition',{
             params:{
@@ -39,6 +42,7 @@ export default function GuessNutritionScreen() {
             });
     }
 
+    //get food photo based on user query from unsplash
     const getQueryPhoto = () => {
         axios.get('https://api.unsplash.com/search/photos',{
             params:{
@@ -61,6 +65,7 @@ export default function GuessNutritionScreen() {
             });
     }
 
+    //get all the results
     const getResult = () => {
         if(searchText){
             getQueryPhoto();
@@ -86,7 +91,7 @@ export default function GuessNutritionScreen() {
                     backgroundColor: Colors[colorScheme].background
             }]}
         >
-
+            {/* searchbar */}
             <SearchBar
                 placeholder= "type dish name here"
                 searchText={searchText}
@@ -98,6 +103,7 @@ export default function GuessNutritionScreen() {
                 showResult &&
                 (
                     <View style={styles.nutritionContainer}>
+                        {/* title */}
                         <Text
                             style={[styles.title,{
                                 color: Colors[colorScheme].tint
@@ -105,13 +111,15 @@ export default function GuessNutritionScreen() {
                         >
                             nutrition
                         </Text>
+                        {/* image of the food */}
                         <Image
                             source={{
-                                uri: queryImage
+                                uri: queryImage || "https://cdn.pixabay.com/photo/2016/12/08/15/45/panda-1892023__340.png"
                             }}
                             style={styles.image}
                             resizeMode="cover"
                         />
+                        {/* nutrition data */}
                         <View style={styles.dataContainer}>
                             <Text style={[styles.heading,{
                                 color: Colors[colorScheme].tint

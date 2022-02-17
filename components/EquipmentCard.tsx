@@ -10,7 +10,6 @@ export type EquipmentCardProps = {
     }
 }
 
-
 const EquipmentCard = (props: EquipmentCardProps) => {
     const colorScheme = useColorScheme();
 
@@ -46,7 +45,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginHorizontal: 5,
         justifyContent: "center",
-        width: 80
+        width: 80,
+        height: 80
     },
     image:{
         height: 50,

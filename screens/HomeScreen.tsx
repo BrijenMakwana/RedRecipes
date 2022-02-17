@@ -1,6 +1,4 @@
-import {Dimensions, FlatList, Platform, SafeAreaView, StyleSheet} from 'react-native';
-
-import { RootTabScreenProps } from '../types';
+import { FlatList, Platform, SafeAreaView, StyleSheet} from 'react-native';
 
 import { useState} from "react";
 import RecipeCategory from "../components/RecipeCategory";
@@ -8,6 +6,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import Colors from "../constants/Colors";
 
 export default function HomeScreen() {
+    //food categories to show on home screen
     const [categories,setCategories] = useState([
         {
             id: "1",
@@ -38,6 +37,11 @@ export default function HomeScreen() {
             id: "6",
             categoryName: "Fan of Indian Food",
             tags: "indian"
+        },
+        {
+            id: "7",
+            categoryName: "Best in Chicken",
+            tags: "chicken"
         }
 
     ]);
@@ -49,7 +53,9 @@ export default function HomeScreen() {
     <SafeAreaView
         style={[styles.container,{
             backgroundColor: Colors[colorScheme].background
-        }]}>
+        }]}
+    >
+        {/* list of food categories */}
         <FlatList
             data={categories}
             renderItem={({item})=> <RecipeCategory category={item}/>}
@@ -59,8 +65,6 @@ export default function HomeScreen() {
                 marginTop: Platform.OS === "android" ? 40 : 0
             }}
         />
-
-
     </SafeAreaView>
   );
 }
@@ -68,6 +72,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     }
 });

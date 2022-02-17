@@ -30,7 +30,7 @@ export default function RecipeScreen() {
 
     const colorScheme = useColorScheme();
 
-
+    // get recipe details based on recipe id
     const getRecipe = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true`,{
             params:{
@@ -40,7 +40,6 @@ export default function RecipeScreen() {
         })
             .then((response)=> {
                 // handle success
-                // console.log(response.data.recipes);
                 setRecipe(response.data);
                 setIngredients(response.data.extendedIngredients);
                 setNutrition(response.data.nutrition.nutrients);
@@ -54,15 +53,15 @@ export default function RecipeScreen() {
             });
     }
 
+    //go to instruction screen
     const goToFullRecipe = () => {
-        // got to recipe source
-        // WebBrowser.openBrowserAsync(recipe.sourceUrl);
-
+        // got to recipe instructions
         navigation.navigate("Instruction",{
             id: recipeId
         });
     }
 
+    //get similar recipes
     const getSimilarRecipes = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/similar`,{
             params:{
@@ -85,6 +84,7 @@ export default function RecipeScreen() {
             });
     }
 
+    //get equipments needed for a recipe
     const getEquipments = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/equipmentWidget.json`,{
             params:{
@@ -106,27 +106,6 @@ export default function RecipeScreen() {
             });
     }
 
-    // const getTaste = () => {
-    //     axios.get(`https://api.spoonacular.com/recipes/${recipeId}/tasteWidget.json`,{
-    //         params:{
-    //             apiKey: "aec1c681869d4aff8737283c1a15a3c5"
-    //         }
-    //
-    //     })
-    //         .then((response)=> {
-    //             // handle success
-    //             console.log(response.data);
-    //
-    //         })
-    //         .catch(function (error) {
-    //             // handle error
-    //             console.log(error);
-    //         })
-    //         .then(function () {
-    //             // always executed
-    //         });
-    // }
-
     useEffect(()=>{
         getRecipe();
         getSimilarRecipes();
@@ -141,19 +120,21 @@ export default function RecipeScreen() {
 
                 {/*   nutrition information */}
                 <View style={styles.nutritionContainer}>
+                    {/* list of nutrition cards*/}
                     <FlatList
                         data={nutrition}
                         renderItem={({item})=> <NutrientCard nutrient={item}/>}
                         keyExtractor={item=> item.name}
                         showsVerticalScrollIndicator={false}
                         ListHeaderComponent={
-                        <View>
-                            {/* title */}
+                        <View style={{backgroundColor: Colors[colorScheme].background }}>
+                            {/* title of the recipe */}
                             <Text style={[styles.title,{
                                 color: Colors[colorScheme].text
                             }]}>
                                 {recipe.title}
                             </Text>
+
                             {/* image   */}
                             <View style={styles.imageContainer}>
                                 <Image
@@ -163,6 +144,7 @@ export default function RecipeScreen() {
                                     style={styles.image}
                                     resizeMode= "cover"
                                 />
+
                                 {/* duration*/}
                                 <View style={[styles.duration,{
                                     backgroundColor: Colors[colorScheme].tint
@@ -177,7 +159,7 @@ export default function RecipeScreen() {
                                     </Text>
                                 </View>
 
-                                {/* full recipe*/}
+                                {/*  recipe instruction button */}
                                 <Pressable
                                     style={[styles.fullRecipe,{
                                         backgroundColor: Colors[colorScheme].tint
@@ -187,7 +169,8 @@ export default function RecipeScreen() {
                                     <Ionicons name="play" size={24} color="#fff" />
                                 </Pressable>
                             </View>
-                            {/* Ingredients*/}
+
+                            {/* Ingredients */}
                             <View style={styles.ingredientContainer}>
                                 <View style={[styles.ingredientIconContainer,{
                                     backgroundColor: Colors[colorScheme].tint
@@ -197,17 +180,17 @@ export default function RecipeScreen() {
                                         size={30} color="#fff"
                                     />
                                 </View>
+                                {/* list of ingredient cards */}
                                 <FlatList
                                     data={ingredients}
                                     renderItem={({item})=> <IngredientCard ingredient={item}/>}
                                     keyExtractor={item=>item.id}
                                     horizontal
                                     showsHorizontalScrollIndicator={false}
-
                                 />
-
                             </View>
-                            {/* equipments*/}
+
+                            {/* equipments */}
                             <View style={styles.ingredientContainer}>
                                 <View style={[styles.ingredientIconContainer,{
                                     backgroundColor: Colors[colorScheme].tint
@@ -218,6 +201,7 @@ export default function RecipeScreen() {
                                         color="#fff"
                                     />
                                 </View>
+                                {/* list of equipment cards */}
                                 <FlatList
                                     data={equipments}
                                     renderItem={({item})=> <EquipmentCard equipment={item}/>}
@@ -226,13 +210,16 @@ export default function RecipeScreen() {
                                     showsHorizontalScrollIndicator={false}
                                 />
                             </View>
-                            {/*    similar recipes*/}
+
+                            {/* similar recipes */}
                             <View style={styles.similarRecipesContainer}>
+                                {/* title */}
                                 <Text style={[styles.similarRecipeTitle,{
                                     color: Colors[colorScheme].text
                                 }]}>
                                     Related Recipes
                                 </Text>
+                                {/* list of similar recipe cards */}
                                 <FlatList
                                     data={similarRecipes}
                                     renderItem={({item})=> <SimilarRecipeCard recipe={item}/>}
@@ -241,10 +228,11 @@ export default function RecipeScreen() {
                                     showsHorizontalScrollIndicator={false}
                                 />
                             </View>
+                            {/* heading for Nutrition */}
                             <Text
                                 style={[styles.nutritionTitle,{
                                     color: Colors[colorScheme].text
-                                }]}>Nutrition</Text>
+                                }]}>nutrition</Text>
                         </View>
                         }
                     />
@@ -301,7 +289,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     ingredientContainer:{
-        marginTop: 25,
+        marginTop: 35,
         flexDirection: "row",
         alignItems: "center"
     },
@@ -330,6 +318,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "600",
         marginLeft: 30,
-        marginBottom: 15
+        marginBottom: 15,
+        textTransform: "capitalize"
     }
 });

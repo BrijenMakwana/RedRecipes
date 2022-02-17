@@ -1,9 +1,5 @@
-import {Dimensions, FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
-
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useRoute} from "@react-navigation/native";
@@ -19,6 +15,7 @@ export default function InstructionScreen() {
 
     const [recipeId,setRecipeId] = useState(route.params.id);
 
+    //get instructions for the recipe based on recipe id
     const getInstructions = () => {
         axios.get(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions`,{
             params:{
@@ -28,7 +25,6 @@ export default function InstructionScreen() {
         })
             .then((response)=> {
                 // handle success
-                // console.log(response.data.recipes);
                 setInstructions(response.data);
             })
             .catch(function (error) {
@@ -45,18 +41,19 @@ export default function InstructionScreen() {
     useEffect(()=>{
         getInstructions();
     },[])
+
     return (
         <SafeAreaView
             style={[styles.container,{
                 backgroundColor: Colors[colorScheme].background
             }]}>
+            {/* list of instructions set */}
             <FlatList
                 data={instructions}
                 renderItem={({item})=> <InstructionComponent instruction={item}/>}
                 keyExtractor={item=> item.steps[0].step}
+                showsVerticalScrollIndicator={false}
             />
-
-
         </SafeAreaView>
     );
 }

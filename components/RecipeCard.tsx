@@ -11,7 +11,6 @@ export type RecipeCardProps = {
        readyInMinutes: number;
        title: string;
        dishTypes: [string];
-
     }
 }
 
@@ -21,11 +20,13 @@ const RecipeCard = (props: RecipeCardProps) => {
 
     const colorScheme = useColorScheme();
 
+    // go to recipe screen
     const goToRecipe = () => {
         navigation.navigate("Recipe",{
             id: props.recipe.id
         })
     }
+
     return (
         <Pressable
             style={[styles.container,{
@@ -34,7 +35,7 @@ const RecipeCard = (props: RecipeCardProps) => {
             onPress={goToRecipe}
         >
 
-               {/* image container*/}
+               {/* image container */}
                 <View style={styles.imageContainer}>
                     <Image
                         source={{
@@ -44,10 +45,12 @@ const RecipeCard = (props: RecipeCardProps) => {
                         resizeMode= "cover"
                     />
                 </View>
-                {/* duration*/}
+
+                {/* duration */}
                 <View style={[styles.duration,{
                     backgroundColor: Colors[colorScheme].tint
                 }]}>
+                    {/* time */}
                     <Text
                         style={[styles.timeText,{
                             color: Colors[colorScheme].background
@@ -57,6 +60,7 @@ const RecipeCard = (props: RecipeCardProps) => {
                         {props.recipe.readyInMinutes} min
                     </Text>
                 </View>
+
                 {/* info */}
                 <View style={styles.info}>
                     {/* title */}
@@ -69,6 +73,7 @@ const RecipeCard = (props: RecipeCardProps) => {
                     >
                         {props.recipe.title}
                     </Text>
+
                     {/* dish type*/}
                     <Text
                         style={[styles.dishType,{
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         width: 250,
-        marginLeft: 20,
+        marginLeft: 25,
         shadowColor: "#000",
         shadowOpacity: 0.5,
         elevation: 10,
@@ -107,7 +112,6 @@ const styles = StyleSheet.create({
         width: 250,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30
-
     },
     duration:{
         marginTop: 20,
@@ -120,7 +124,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 130,
         right: 20
-
     },
     timeText:{
         fontSize: 15,

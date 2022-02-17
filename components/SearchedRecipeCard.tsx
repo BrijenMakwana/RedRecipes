@@ -18,6 +18,7 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
 
     const colorScheme = useColorScheme();
 
+    //go to recipe screen
     const goToRecipe = () => {
         navigation.navigate("Recipe",{
             id: props.recipe.id
@@ -40,9 +41,12 @@ const SearchedRecipeCard = (props: SearchedRecipeCardProps) => {
                 resizeMode= "cover"
             />
         {/*    recipe name */}
-            <Text style={[styles.name,{
-                color: Colors[colorScheme].text
-            }]}>
+            <Text
+                style={[styles.name,{
+                    color: Colors[colorScheme].text
+                }]}
+                numberOfLines={3}
+            >
                 {props.recipe.title}
             </Text>
         </Pressable>
@@ -56,6 +60,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         width: "85%",
+        height: 150,
         alignSelf: "center",
         borderRadius: 30,
         shadowColor: "#000",

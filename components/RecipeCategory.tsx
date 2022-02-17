@@ -15,13 +15,13 @@ export type RecipeCategoryProps = {
         categoryName: string;
         tags: string;
     }
-
 }
 
 export default function RecipeCategory(props: RecipeCategoryProps) {
 
     const [recipes,setRecipes] = useState([]);
 
+    // get recipes based on tags
     const getRandomRecipes = () => {
         axios.get('https://api.spoonacular.com/recipes/random?number=25',{
             params:{
@@ -32,7 +32,6 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
         })
             .then((response)=> {
                 // handle success
-                // console.log(response.data.recipes);
                 setRecipes(response.data.recipes)
 
             })
@@ -50,10 +49,12 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
     useEffect(()=>{
         getRandomRecipes();
     },[])
+
     return (
             <View style={[styles.container,{
                 backgroundColor: Colors[colorScheme].background
             }]}>
+                {/* category name */}
                 <Text
                     style={[styles.categoryName,{
                         color: Colors[colorScheme].text
@@ -61,6 +62,8 @@ export default function RecipeCategory(props: RecipeCategoryProps) {
                 >
                     {props.category.categoryName}
                 </Text>
+
+                {/* list of recipe cards */}
                 <FlatList
                     data={recipes}
                     renderItem={({item})=> <RecipeCard recipe={item}/>}

@@ -16,11 +16,13 @@ const StepItem = (props: StepItemProps) => {
         <View style={[styles.container,{
             backgroundColor: Colors[colorScheme].background
         }]}>
+            {/* number of step */}
             <Text style={[styles.number,{
                 color: Colors[colorScheme].tint
             }]}>
                 Step: {props.number}
             </Text>
+            {/* step */}
             <Text style={[styles.step,{
                 color: Colors[colorScheme].text
             }]}>

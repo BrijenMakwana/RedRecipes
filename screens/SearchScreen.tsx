@@ -12,6 +12,7 @@ export default function SearchScreen() {
   const [recipes,setRecipes] = useState([]);
   const [searchText,setSearchText] = useState("");
 
+  // get recipes based on user query
   const gerSearchedRecipes = () => {
     axios.get('https://api.spoonacular.com/recipes/complexSearch',{
       params:{
@@ -23,10 +24,7 @@ export default function SearchScreen() {
     })
         .then((response)=> {
           // handle success
-
             setRecipes(response.data.results);
-
-
         })
         .catch(function (error) {
           // handle error
@@ -39,18 +37,22 @@ export default function SearchScreen() {
 
   const colorScheme = useColorScheme();
 
+  // clear searchbar
   const clearSearch = () => {
     setSearchText("");
     setRecipes([]);
   }
+
   return (
     <SafeAreaView style={[styles.container,{
         backgroundColor: Colors[colorScheme].background
     }]}>
 
         <View style={{
-            marginTop: Platform.OS === "android" ? 50 : 0
+            marginTop: Platform.OS === "android" ? 50 : 0,
+            backgroundColor: Colors[colorScheme].background
         }}>
+            {/* list of searched recipes */}
             <FlatList
                 data={recipes}
                 renderItem={({item})=> <SearchedRecipeCard recipe={item}/>}

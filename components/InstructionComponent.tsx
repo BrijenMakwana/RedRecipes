@@ -12,7 +12,6 @@ export type InstructionComponentProps = {
                 step: string;
             }
         ]
-
     }
 }
 
@@ -24,6 +23,7 @@ const InstructionComponent = (props: InstructionComponentProps) => {
         <View style={[styles.container,{
             backgroundColor: Colors[colorScheme].background
         }]}>
+            {/* list of steps */}
             <FlatList
                 data={props.instruction.steps}
                 renderItem={({item})=> <StepItem number={item.number} step={item.step}/>}

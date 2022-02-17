@@ -21,7 +21,7 @@ const SearchBar = (props: SearchBarProps) => {
             borderColor: Colors[colorScheme].tint
         }]}>
             {/*   search icon */}
-            <FontAwesome name="search" size={20} color="#FF7878" />
+            <FontAwesome name="search" size={20} color={Colors[colorScheme].tint} />
             {/*    texInput for search */}
             <TextInput
                 placeholder={props.placeholder}

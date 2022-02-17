@@ -8,7 +8,6 @@ export type NutrientCardProps = {
         name: string;
         amount: number;
         unit: string;
-
     }
 }
 
@@ -20,14 +19,18 @@ const NutrientCard = (props: NutrientCardProps) => {
         <View style={[styles.container,{
             backgroundColor: Colors[colorScheme].background
         }]}>
+            {/* nutrient */}
             <Text style={[styles.name,{
                 color: Colors[colorScheme].tint
             }]}>
                 {props.nutrient.name}
             </Text>
+            {/* nutrient amount and unit*/}
             <Text style={[styles.data,{
                 color: Colors[colorScheme].text
-            }]}>{props.nutrient.amount} {props.nutrient.unit}</Text>
+            }]}>
+                {props.nutrient.amount} {props.nutrient.unit}
+            </Text>
         </View>
     );
 };

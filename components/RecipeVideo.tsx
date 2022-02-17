@@ -12,7 +12,6 @@ export type RecipeVideoProps = {
         thumbnail: string;
         shortTitle: string;
         length: number;
-
     }
 }
 
@@ -23,6 +22,7 @@ const RecipeVideo = (props: RecipeVideoProps) => {
 
     const colorScheme = useColorScheme();
 
+    // go to recipe video
     const goToRecipe = () => {
         //go to source url
         WebBrowser.openBrowserAsync(`https://www.youtube.com/watch?v=${props.recipeVideo.youTubeId}`);
@@ -45,6 +45,7 @@ const RecipeVideo = (props: RecipeVideoProps) => {
                     resizeMode= "cover"
                 />
             </View>
+
             {/*    video title */}
             <Text
                 style={[styles.title,{
@@ -53,14 +54,19 @@ const RecipeVideo = (props: RecipeVideoProps) => {
                 numberOfLines={1}>
                 {props.recipeVideo.shortTitle}
             </Text>
+
             {/*    video duration */}
             <View style={[styles.duration,{
                 backgroundColor: Colors[colorScheme].tint
             }]}>
                 <AntDesign name="youtube" size={24} color="#fff" />
+                {/* time */}
                 <Text style={[styles.time,{
                     color: Colors[colorScheme].background
-                }]}>{Math.round(props.recipeVideo.length/60)} min</Text>
+                }]}
+                >
+                    {Math.round(props.recipeVideo.length/60)} min
+                </Text>
             </View>
         </Pressable>
     );
@@ -93,12 +99,12 @@ const styles = StyleSheet.create({
         width: "100%",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-
     },
     title:{
         fontSize: 20,
         fontWeight: "bold",
-        marginTop: 40
+        marginTop: 40,
+        marginHorizontal: 10
     },
     duration:{
         width: 100,

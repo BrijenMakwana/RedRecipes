@@ -11,13 +11,12 @@ export type RecipeCardProps = {
         title: string;
         readyInMinutes: number;
         sourceUrl: string;
-
     }
 }
 
 const SimilarRecipeCard = (props: RecipeCardProps) => {
 
-
+    // go to source website
     const goToRecipe = () => {
         //go to source url
         WebBrowser.openBrowserAsync(props.recipe.sourceUrl);
@@ -32,14 +31,16 @@ const SimilarRecipeCard = (props: RecipeCardProps) => {
             }]}
             onPress={goToRecipe}
         >
+            {/* title */}
             <Text
                 style={[styles.title,{
                     color: Colors[colorScheme].text
                 }]}
-                numberOfLines={5}
+                numberOfLines={4}
             >
                 {props.recipe.title}
             </Text>
+
             {/* duration*/}
             <View style={[styles.duration,{
                 backgroundColor: Colors[colorScheme].tint
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
         width: 170,
         marginVertical: 10,
         padding: 10
-
     },
     title:{
         fontSize: 17

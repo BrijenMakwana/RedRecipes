@@ -4,17 +4,15 @@ import {ActivityIndicator, FlatList, Platform, SafeAreaView, StyleSheet, View, T
 import SearchBar from "../components/SearchBar";
 import React, {useState} from "react";
 import axios from "axios";
-import SearchedRecipeCard from "../components/SearchedRecipeCard";
 import RecipeVideo from "../components/RecipeVideo";
-import {AntDesign} from "@expo/vector-icons";
 import useColorScheme from "../hooks/useColorScheme";
 import Colors from "../constants/Colors";
 
 export default function VideoScreen() {
     const [recipes,setRecipes] = useState([]);
     const [searchText,setSearchText] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
 
+    // get recipe videos based on user query
     const getSearchedRecipeVideos = () => {
         axios.get('https://api.spoonacular.com/food/videos/search',{
             params:{
@@ -26,10 +24,7 @@ export default function VideoScreen() {
         })
             .then((response)=> {
                 // handle success
-
                 setRecipes(response.data.videos);
-
-
             })
             .catch(function (error) {
                 // handle error
@@ -40,6 +35,7 @@ export default function VideoScreen() {
             });
     }
 
+    // clear search bar
     const clearSearch = () => {
         setSearchText("");
         setRecipes([]);
@@ -52,10 +48,10 @@ export default function VideoScreen() {
             backgroundColor: Colors[colorScheme].background
         }]}>
             <View style={{
-                marginTop: Platform.OS === "android" ? 50 : 0
+                marginTop: Platform.OS === "android" ? 50 : 0,
+                backgroundColor: Colors[colorScheme].background
             }}>
-                {isLoading && <ActivityIndicator color="#FF7878"/>}
-                { !isLoading &&
+                {/* list of RecipeVideo*/}
                 <FlatList
                     data={recipes}
                     renderItem={({item})=> <RecipeVideo recipeVideo={item}/>}
@@ -71,7 +67,6 @@ export default function VideoScreen() {
                     />
                     }
                 />
-                }
             </View>
         </SafeAreaView>
     );

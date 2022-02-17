@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         justifyContent: "center",
         width: 80,
-        // backgroundColor: "red"
+        height: 80
     },
     image:{
         height: 50,
